@@ -45,11 +45,14 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Install Dependencies
+      - id: install
+        name: Install Dependencies
         uses: ./.github/actions/install
         with:
           cache-path: node_modules
           cache-key: "${{ hashFiles('package-lock.json') }}"
+      - name: Check Install Step output
+        run: echo "${{ toJSON(steps.install.outputs) }}"
       - name: Build website
         run: npm run build
       - name: Upload artifacts
