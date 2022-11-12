@@ -64,6 +64,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: qa
+      url: http://gh-actions-course.mariusmihai.org
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -74,11 +77,13 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
-      - name: Deploy site
-        run: echo "Deploying..."
-  information:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
       - name: Run Custom Action
         uses: ./.github/actions/deploy-s3
+        with:
+          bucket-name: gh-actions-course.mariusmihai.org
+          bucket-region: us-east-1
+          app-folder: ./dist
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

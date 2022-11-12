@@ -1,5 +1,16 @@
 name: "Deploy to S3"
 
+inputs:
+  bucket-name:
+    required: true
+    description: Bucket name used as static website server
+  bucket-region:
+    required: true
+    description: Region where bucket was created
+  app-folder:
+    required: true
+    description: Folder containing application files
+
 runs:
   using: node16
   main: index.js
