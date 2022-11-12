@@ -1,0 +1,27 @@
+name: "Install Dependencies"
+inputs:
+  cache-path:
+    default: node_modules
+  cache-key:
+    required: true
+outputs:
+  success:
+    value: ${{ steps.result.outputs.success }}
+runs:
+  using: "composite"
+  steps:
+    - id: cache
+      uses: actions/cache@v3
+      with:
+        key: ${{ inputs.cache-key }}
+        path: ${{ inputs.cache-path }}
+    - id: install
+      shell: sh
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+    - id: result
+      shell: sh
+      if: |
+        always() && 
+        (steps.install.outcome == 'skipped' || steps.install.outcome == 'success')
+      run: echo "success=true" >> $GITHUB_OUTPUT
