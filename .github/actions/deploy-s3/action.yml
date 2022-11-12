@@ -11,6 +11,10 @@ inputs:
     required: true
     description: Folder containing application files
 
+outputs:
+  website-url:
+    description: Url of application
+
 runs:
   using: node16
   main: index.js

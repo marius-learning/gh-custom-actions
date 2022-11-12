@@ -1,6 +1,5 @@
-const core = require("@actions/core");
-const exec = require("@actions/exec");
-// const github = require("@actions/github");
+import core from "@actions/core";
+import exec from "@actions/exec";
 
 function run() {
   const bucketName = core.getInput("bucket-name", {
@@ -19,6 +18,8 @@ function run() {
   exec.exec(
     `aws s3 sync ${appFolder} s3://${bucketName} --delete --region ${bucketRegion}`
   );
+
+  core.setOutput("website-url", `http://${bucketName}`);
 }
 
 run();

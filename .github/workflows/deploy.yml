@@ -77,7 +77,8 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
-      - name: Run Custom Action
+      - id: deploy
+        name: Run Custom Action
         uses: ./.github/actions/deploy-s3
         with:
           bucket-name: gh-actions-course.mariusmihai.org
@@ -87,3 +88,4 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: echo "${{ steps.deploy.website-url }}"
