@@ -14,6 +14,7 @@ jobs:
       - name: Install Dependencies
         uses: ./.github/actions/install-cache
         with:
+          caching: false
           cache-path: node_modules
           cache-key: "${{ hashFiles('package-lock.json') }}"
       - name: Lint code
