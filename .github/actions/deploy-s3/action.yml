@@ -1,0 +1,5 @@
+name: "Deploy to S3"
+
+runs:
+  using: node16
+  main: index.js

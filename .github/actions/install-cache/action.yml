@@ -23,9 +23,7 @@ runs:
         path: ${{ inputs.cache-path }}
     - id: install
       shell: sh
-      if: |
-        always() && 
-        (steps.cache.outcome == 'skipped' || steps.cache.outputs.cache-hit != 'true')
+      if: inputs.caching != 'true' || steps.cache.outputs.cache-hit != 'true'
       run: npm ci
     - id: result
       shell: sh
