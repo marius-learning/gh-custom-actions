@@ -12,8 +12,9 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install Dependencies
-        uses: ./.github/actions/install
+        uses: ./.github/actions/install-cache
         with:
+          caching: false
           cache-path: node_modules
           cache-key: "${{ hashFiles('package-lock.json') }}"
       - name: Lint code
@@ -25,8 +26,9 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install Dependencies
-        uses: ./.github/actions/install
+        uses: ./.github/actions/install-cache
         with:
+          caching: false
           cache-path: node_modules
           cache-key: "${{ hashFiles('package-lock.json') }}"
       - name: Test code
@@ -46,8 +48,9 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install Dependencies
-        uses: ./.github/actions/install
+        uses: ./.github/actions/install-cache
         with:
+          caching: false
           cache-path: node_modules
           cache-key: "${{ hashFiles('package-lock.json') }}"
       - name: Build website

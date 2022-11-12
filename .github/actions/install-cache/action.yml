@@ -1,23 +1,31 @@
-name: "Install Dependencies"
+name: Install & Cache Dependencies
+
 inputs:
   cache-path:
     default: node_modules
   cache-key:
     required: true
+  caching:
+    required: true
+    default: true
 outputs:
   success:
     value: ${{ steps.result.outputs.success }}
+
 runs:
   using: "composite"
   steps:
     - id: cache
+      if: inputs.caching == 'true'
       uses: actions/cache@v3
       with:
         key: ${{ inputs.cache-key }}
         path: ${{ inputs.cache-path }}
     - id: install
       shell: sh
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: |
+        always() && 
+        (steps.cache.outcome == 'skipped' || steps.cache.outputs.cache-hit != 'true')
       run: npm ci
     - id: result
       shell: sh
