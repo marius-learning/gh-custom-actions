@@ -13,10 +13,23 @@ def run():
 
     for root, dirs, files in os.walk(app_folder):
         for file in files:
-            s3_client.upload_file(os.path.join(root, file), bucket_name, file)
+            content_type = 'application/octet-stream'
+            
+            if file.endswith('.js'):
+                content_type = 'application/javascript'
+            elif file.endswith('.html'):
+                content_type = 'text/html'
+            elif file.endswith('.svg'):
+                content_type = 'image/svg+xml'
+            elif file.endswith('.css'):
+                content_type = 'text/css'
+            elif file.endswith('.png'):
+                content_type = 'image/png'
+        
+            s3_client.upload_file(os.path.join(root, file), bucket_name, file, ExtraArgs={'ContentType': content_type})
     
     website_url = 'http://gh-actions-course.mariusmihai.org'
-    print(f'"website-rul={website_url}" >> $GITHUB_OUTPUTS')
+    print(f'"website-url={website_url}" >> $GITHUB_OUTPUTS')
 
 if __name__ == "__main__":
     run()
