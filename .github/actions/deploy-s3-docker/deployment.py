@@ -1,6 +1,6 @@
 import os
 import boto3
-from botocose.config import Config
+from botocore.config import Config
 
 def run():
     app_folder = os.environ.get('INPUT_APP-FOLDER')
