@@ -15,4 +15,4 @@ COPY ./ ./
 
 # USER app
 
-CMD [ "python3", "deployment.py" ]
+CMD [ "python3", "/home/app/deployment.py" ]
