@@ -77,13 +77,24 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
+      # - id: deploy
+      #   name: Run Javascript Custom Action
+      #   uses: ./.github/actions/deploy-s3
+      #   with:
+      #     app-folder: ./dist
+      #     bucket-region: us-east-1
+      #     bucket-name: gh-actions-course.mariusmihai.org
+      #   env:
+      #     AWS_REGION: ${{ secrets.AWS_REGION }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - id: deploy
-        name: Run Custom Action
-        uses: ./.github/actions/deploy-s3
+        name: Run Docker Custom Action
+        uses: ./.github/actions/deploy-s3-docker
         with:
-          bucket-name: gh-actions-course.mariusmihai.org
-          bucket-region: us-east-1
           app-folder: ./dist
+          bucket-region: us-east-1
+          bucket-name: gh-actions-course.mariusmihai.org
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
