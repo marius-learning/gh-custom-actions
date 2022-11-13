@@ -9,6 +9,7 @@ inputs:
     required: true
 outputs:
   website-url:
+    description: Website url
 
 runs:
   using: docker
