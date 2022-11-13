@@ -1,0 +1,15 @@
+name: Deploy to S3 via Container
+
+inputs:
+  bucket-name:
+    required: true
+  bucket-region:
+    required: true
+  app-folder:
+    required: true
+outputs:
+  website-url:
+
+runs:
+  using: docker
+  image: Dockerfile
