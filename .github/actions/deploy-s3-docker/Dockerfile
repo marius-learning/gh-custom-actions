@@ -3,6 +3,11 @@ FROM python:alpine
 # RUN groupadd --gid 1000 app \
 #     && useradd --uid 1000 --gid 1000 -m /home/app
 
+# GitHub injects inputs as env variables
+# ENV INPUT_APP-FOLDER
+# ENV INPUT_BUCKET-NAME
+# ENV INPUT_BUCKET-REGION
+
 WORKDIR /home/app
 
 COPY requirements.txt ./
