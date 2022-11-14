@@ -3,8 +3,6 @@ import boto3
 from botocore.config import Config
 
 def get_content_type(extension):
-    content_type = 'application/octet-stream'
-    
     match extension:
         case '.js':
             content_type = 'application/javascript'
@@ -17,7 +15,7 @@ def get_content_type(extension):
         case '.png':
             content_type = 'image/png'
         case _ :
-            pass
+            content_type = 'application/octet-stream'
 
     return content_type
 
