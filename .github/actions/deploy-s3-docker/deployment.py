@@ -35,10 +35,10 @@ def run():
             s3_client.upload_file(os.path.join(root, file), bucket_name, file, ExtraArgs={'ContentType': content_type})
     
     website_url_r53 = 'http://gh-actions-course.mariusmihai.org'
-    print(f'"website-url-r53={website_url_r53}" >> $GITHUB_OUTPUTS')
+    print(f'::set-output name=website-url-r53::{website_url_r53}')
 
     website_url_s3 = 'http://gh-actions-course.mariusmihai.org.s3-website.us-east-1.amazonaws.com'
-    print(f'"website-url-s3=%{website_url_s3}" >> $GITHUB_OUTPUTS')
+    print(f'::set-output name=website-url-s3::{website_url_s3}')
 
 if __name__ == "__main__":
     run()
