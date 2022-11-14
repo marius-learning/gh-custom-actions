@@ -31,11 +31,14 @@ def run():
     for root, dirs, files in os.walk(app_folder):
         for file in files:
             name, extension = os.path.splitext(file)
-            content_type = get_content_type(extension)
+            content_type = get_content_type('')
             s3_client.upload_file(os.path.join(root, file), bucket_name, file, ExtraArgs={'ContentType': content_type})
     
-    website_url = 'http://gh-actions-course.mariusmihai.org'
-    print(f'"website-url={website_url}" >> $GITHUB_OUTPUTS')
+    website_url_r53 = 'http://gh-actions-course.mariusmihai.org'
+    print(f'"website-url-r53={website_url_r53}" >> $GITHUB_OUTPUTS')
+
+    website_url_s3 = 'http://gh-actions-course.mariusmihai.org.s3-website.us-east-1.amazonaws.com'
+    print(f'"website-url-s3=%{website_url_s3}" >> $GITHUB_OUTPUTS')
 
 if __name__ == "__main__":
     run()
