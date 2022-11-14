@@ -16,6 +16,8 @@ def get_content_type(extension):
             content_type = 'text/css'
         case '.png':
             content_type = 'image/png'
+        case _ :
+            pass
 
     return content_type
 
